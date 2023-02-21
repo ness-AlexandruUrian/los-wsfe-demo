@@ -1,6 +1,5 @@
+import {webSocket} from 'rxjs/webSocket';
 import {Component} from '@angular/core';
-import {WebSocketService} from './websocketservice';
-// import {Client} from '@stomp/stompjs';
 
 @Component({
   selector: 'app-root',
@@ -11,21 +10,18 @@ import {WebSocketService} from './websocketservice';
 export class AppComponent {
   title = "ws-fe"
   message = 'hello';
-  notification = '';
-  private webSocketService: WebSocketService;
+  notifications:Array<any> = new Array<any>();
 
-  constructor(webSocketService: WebSocketService) {
-    this.webSocketService = webSocketService;
+  constructor() {
+    const subject = webSocket("ws://localhost:8090/application")
 
-    let stompClient = this.webSocketService.connect();
-    stompClient.connect({}, frame => {
-      console.log(`Frame ${frame}`);
-
-      stompClient.subscribe(`/topic/greetings`, data => {
-        console.log(data);
-        this.notification = data.body;
-
-      })
-    });
+    subject.subscribe({
+      next: msg => {
+        this.notifications.push(JSON.stringify(msg) + "\n");
+        console.log(msg);
+      },
+      error: err =>{ console.log("Error "); console.log(err)},
+      complete: () => console.log("complete")
+    })
   }
 }

@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {WebSocketService} from './websocketservice';
 
 @NgModule({
   declarations: [
@@ -13,7 +12,7 @@ import {WebSocketService} from './websocketservice';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [WebSocketService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
