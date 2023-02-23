@@ -2,6 +2,10 @@
 
   <h1 style="font-size: 1em;">
 
+    <div>
+      <button (click)="notify()">Notify</button>
+      <input type="number" id="websocketMessageForBe"/>
+    </div>
     <ul>
       <li *ngFor="let notification of notifications">{{notification}}</li>
     </ul>
